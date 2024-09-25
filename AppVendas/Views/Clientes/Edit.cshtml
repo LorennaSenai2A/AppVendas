@@ -28,10 +28,10 @@
                 <input asp-for="Celular" class="form-control" />
                 <span asp-validation-for="Celular" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CadastroAtivo" class="control-label"></label>
-                <input asp-for="CadastroAtivo" class="form-control" />
-                <span asp-validation-for="CadastroAtivo" class="text-danger"></span>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CadastroAtivo" /> @Html.DisplayNameFor(model => model.CadastroAtivo)
+                </label>
             </div>
             <div class="form-group">
                 <label asp-for="DataCadastro" class="control-label"></label>

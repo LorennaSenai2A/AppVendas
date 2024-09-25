@@ -22,7 +22,8 @@ namespace AppVendas.Controllers
         // GET: Vendas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vendas.ToListAsync());
+            var applicationDbContext = _context.Vendas.Include(v => v.Cliente);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Vendas/Details/5
@@ -34,6 +35,7 @@ namespace AppVendas.Controllers
             }
 
             var venda = await _context.Vendas
+                .Include(v => v.Cliente)
                 .FirstOrDefaultAsync(m => m.VendaId == id);
             if (venda == null)
             {
@@ -46,6 +48,7 @@ namespace AppVendas.Controllers
         // GET: Vendas/Create
         public IActionResult Create()
         {
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId");
             return View();
         }
 
@@ -63,6 +66,7 @@ namespace AppVendas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId", venda.ClienteId);
             return View(venda);
         }
 
@@ -79,6 +83,7 @@ namespace AppVendas.Controllers
             {
                 return NotFound();
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId", venda.ClienteId);
             return View(venda);
         }
 
@@ -114,6 +119,7 @@ namespace AppVendas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ClienteId"] = new SelectList(_context.Clientes, "ClienteId", "ClienteId", venda.ClienteId);
             return View(venda);
         }
 
@@ -126,6 +132,7 @@ namespace AppVendas.Controllers
             }
 
             var venda = await _context.Vendas
+                .Include(v => v.Cliente)
                 .FirstOrDefaultAsync(m => m.VendaId == id);
             if (venda == null)
             {

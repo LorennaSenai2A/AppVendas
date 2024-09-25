@@ -10,7 +10,7 @@
 
         /*Chave estrangeira */
 
-        public Guid CatagoriaId { get; set; }
+        public Guid CategoriaId { get; set; }
         public Categoria? Categoria { get; set; }
 
     }

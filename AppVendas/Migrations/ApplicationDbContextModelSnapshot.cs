@@ -30,7 +30,8 @@ namespace AppVendas.Migrations
 
                     b.Property<string>("CategoriaNome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("CategoriaId");
 
@@ -39,14 +40,12 @@ namespace AppVendas.Migrations
 
             modelBuilder.Entity("AppVendas.Models.Cliente", b =>
                 {
-                    b.Property<int>("ClienteId")
+                    b.Property<Guid>("ClienteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteId"));
-
-                    b.Property<int>("CadastroAtivo")
-                        .HasColumnType("int");
+                    b.Property<bool>("CadastroAtivo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Celular")
                         .IsRequired()
@@ -59,8 +58,9 @@ namespace AppVendas.Migrations
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Email")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClienteId");
 
@@ -98,10 +98,7 @@ namespace AppVendas.Migrations
                     b.Property<bool>("CadastroAtivo")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("CatagoriaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CategoriaId")
+                    b.Property<Guid>("CategoriaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ProdutoNome")
@@ -130,21 +127,19 @@ namespace AppVendas.Migrations
                     b.Property<Guid>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("ClienteId1")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DataVenda")
+                    b.Property<DateTime>("DataVenda")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("NotaFiscal")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("TotalVenda")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("TotalVenda")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VendaId");
 
-                    b.HasIndex("ClienteId1");
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("Vendas", (string)null);
                 });
@@ -164,7 +159,9 @@ namespace AppVendas.Migrations
                 {
                     b.HasOne("AppVendas.Models.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId");
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Categoria");
                 });
@@ -173,7 +170,9 @@ namespace AppVendas.Migrations
                 {
                     b.HasOne("AppVendas.Models.Cliente", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteId1");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Cliente");
                 });

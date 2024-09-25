@@ -4,8 +4,8 @@
     {
         public Guid VendaId { get; set; }
         public int NotaFiscal { get; set; }
-        public DateTime? DataVenda { get; set; }
-        public DateTime? TotalVenda { get; set; }
+        public DateTime DataVenda { get; set; }
+        public string TotalVenda { get; set; }
 
         /*Chave estrangeira*/
 

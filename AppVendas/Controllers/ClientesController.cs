@@ -26,7 +26,7 @@ namespace AppVendas.Controllers
         }
 
         // GET: Clientes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -58,6 +58,7 @@ namespace AppVendas.Controllers
         {
             if (ModelState.IsValid)
             {
+                cliente.ClienteId = Guid.NewGuid();
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,7 +67,7 @@ namespace AppVendas.Controllers
         }
 
         // GET: Clientes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -86,7 +87,7 @@ namespace AppVendas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClienteId,ClienteNome,Email,Celular,CadastroAtivo,DataCadastro")] Cliente cliente)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ClienteId,ClienteNome,Email,Celular,CadastroAtivo,DataCadastro")] Cliente cliente)
         {
             if (id != cliente.ClienteId)
             {
@@ -117,7 +118,7 @@ namespace AppVendas.Controllers
         }
 
         // GET: Clientes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -137,7 +138,7 @@ namespace AppVendas.Controllers
         // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var cliente = await _context.Clientes.FindAsync(id);
             if (cliente != null)
@@ -149,7 +150,7 @@ namespace AppVendas.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
+        private bool ClienteExists(Guid id)
         {
             return _context.Clientes.Any(e => e.ClienteId == id);
         }
