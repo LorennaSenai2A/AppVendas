@@ -18,10 +18,10 @@ namespace AppVendas.Models
         [Range(0, double.MaxValue, ErrorMessage = "A quantidade em estoque deve positivo!")]
         public double QtdeEstoque { get; set; }
         [Display(Name = "Ativo?")]
-        public bool CadastroAtivo { get; set; }
+        public bool? CadastroAtivo { get; set; }
 
+        [Display(Name = "Categoria")]
         /*Chave estrangeira */
-
         [Required(ErrorMessage = "O campo não pode ser vazio!")]
         public Guid CategoriaId { get; set; }
         public Categoria? Categoria { get; set; }

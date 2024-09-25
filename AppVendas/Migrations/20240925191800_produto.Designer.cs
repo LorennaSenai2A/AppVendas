@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppVendas.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240925111815_categorias")]
-    partial class categorias
+    [Migration("20240925191800_produto")]
+    partial class produto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,7 +98,7 @@ namespace AppVendas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("CadastroAtivo")
+                    b.Property<bool?>("CadastroAtivo")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("CategoriaId")
@@ -106,7 +106,8 @@ namespace AppVendas.Migrations
 
                     b.Property<string>("ProdutoNome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<double>("QtdeEstoque")
                         .HasColumnType("float");

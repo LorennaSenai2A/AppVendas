@@ -51,7 +51,7 @@
                         @Html.DisplayFor(modelItem => item.CadastroAtivo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Categoria.CategoriaId)
+                        @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ProdutoId" class="btn btn-outline-secondary align-items-center"><ion-icon name="create"></ion-icon>Editar</a>

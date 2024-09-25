@@ -95,7 +95,7 @@ namespace AppVendas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("CadastroAtivo")
+                    b.Property<bool?>("CadastroAtivo")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("CategoriaId")
